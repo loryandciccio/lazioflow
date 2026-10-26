@@ -1,0 +1,616 @@
+{
+  "_doc": "Red flag deterministiche di LazioFlow. Ogni regola: pattern regex applicati al testo NORMALIZZATO (minuscolo, senza accenti, spazi compressi). action EMERGENCY -> HARD_RED_FLAG (112, nessun ranking); action UNCERTAIN -> il sistema non classifica in autonomia (116117 + scelta esplicita dell'utente). Le regole sono volutamente conservative: un falso positivo costa un messaggio in più, un falso negativo no. Nessuna gestione della negazione ('non ho dolore al petto' fa scattare la regola): scelta deliberata, documentata in SOURCES.md. verified_at null = fonte non verificata alla data: la regola resta attiva per prudenza.",
+  "version": "2026-09-10-safety-v2",
+  "rules": [
+    {
+      "rule_id": "cardiac_chest_pain",
+      "label": "dolore/oppressione al petto",
+      "action": "EMERGENCY",
+      "patterns": [
+        "dolore (al|nel|in mezzo al) (petto|torace)",
+        "(oppressione|peso|morsa|stretta) (al|sul|nel) (petto|torace)",
+        "male al petto",
+        "petto (mi )?(fa male|stretto)",
+        "infarto"
+      ],
+      "source": {
+        "name": "ISSalute (Istituto Superiore di Sanità) — Infarto del miocardio",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/i/infarto-del-miocardio",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "breathing_difficulty",
+      "label": "difficoltà a respirare",
+      "action": "EMERGENCY",
+      "patterns": [
+        "non (riesco|riesce|respira|respiro)( piu)? a respirare",
+        "(fatica|fatico|difficolta|non riesc\\w+) (a |nel )?respir",
+        "\\b(manca( (l|il))?|mancanza (d|di)) aria\\b",
+        "(respiro|fiato) (corto|affannoso|che manca)",
+        "senza fiato",
+        "soffoc",
+        "affanno forte",
+        "sto soffocando",
+        "non respir[ao]"
+      ],
+      "source": {
+        "name": "ISSalute — Infarto del miocardio / Anafilassi",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/a/anafilassi",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "loss_of_consciousness",
+      "label": "perdita di coscienza / non risponde",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(e |ha |sono |ho )?svenut",
+        "perso i sensi",
+        "perdita di coscienza",
+        "(non|ne) (risponde|si sveglia|reagisce)",
+        "incoscien",
+        "privo di sensi",
+        "collass(o|ato|ata)"
+      ],
+      "source": {
+        "name": "ISSalute — Commozione cerebrale / Anafilassi",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/c/commozione-cerebrale",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "stroke_signs",
+      "label": "segni di ictus (parola, viso, un lato del corpo)",
+      "action": "EMERGENCY",
+      "patterns": [
+        "non riesc\\w+ (piu )?a parlare",
+        "(parla|parlo) (male|strano|impastato)",
+        "parola impastata",
+        "(bocca|viso|faccia) (storta|storto|cadente)",
+        "non (riesco|riesce) a muovere (un|il|la|una) (braccio|gamba|lato|mano|meta)",
+        "(meta|un lato) del (corpo|viso)",
+        "(debolezza|formicolio|intorpidimento) (improvvis\\w+ )?(a |da |di )?(un |una |una sola )?(lato|braccio|gamba|meta)",
+        "ictus",
+        "non vedo (piu )?(da un occhio|niente)"
+      ],
+      "source": {
+        "name": "ISSalute — Ictus",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/i/ictus",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "severe_bleeding",
+      "label": "sanguinamento abbondante che non si ferma",
+      "action": "EMERGENCY",
+      "patterns": [
+        "sangue (che )?non si ferma",
+        "non (riesco|riesce) a fermare il sangue",
+        "emorragi",
+        "(perde|perdo|perdendo) (molto|tanto|un sacco di|troppo) sangue",
+        "sanguina (tanto|molto|abbondante|a fiotti)",
+        "(vomito|vomita|vomitato) sangue",
+        "sangue (dalla bocca|nelle feci|nelle urine) (abbondante|tanto)"
+      ],
+      "source": {
+        "name": "ISSalute — Emorragia",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/e/emorragia",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "seizure",
+      "label": "convulsioni / crisi epilettica in atto",
+      "action": "EMERGENCY",
+      "patterns": [
+        "convuls",
+        "crisi epilettic",
+        "attacco epilettic",
+        "(sta|ha) tremando tutt",
+        "irrigidit\\w+ e (trema|scuot)"
+      ],
+      "source": {
+        "name": "ISSalute — Commozione cerebrale (segni che richiedono ricovero urgente)",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/c/commozione-cerebrale",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "head_trauma_red",
+      "label": "trauma cranico con vomito, confusione, sonnolenza o perdita di coscienza",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(battut\\w+|sbattut\\w+|colpo|botta|trauma|picchiat\\w+|caduta) (la |alla |sulla |in |al )?(testa|cranio|cranic)[^.]{0,80}(vomit|confus|sonnolen|non ricord|svenut|perso i sensi|disorient|non risponde|convuls)",
+        "(vomit|confus|sonnolen|non ricord|svenut|disorient)[^.]{0,80}(battut\\w+|sbattut\\w+|colpo|botta|trauma|caduta) (la |alla |sulla |in |al )?(testa|cranio|cranic)"
+      ],
+      "source": {
+        "name": "ISSalute — Commozione cerebrale",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/c/commozione-cerebrale",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "anaphylaxis",
+      "label": "reazione allergica con gonfiore di gola/lingua/labbra",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(gonfi\\w+|gonfiore) (della |alla |la |di |le |il )?(gola|lingua|labbra|faccia|viso)",
+        "(gola|lingua) (gonfia|gonfio|chiusa|che si chiude)",
+        "shock anafilattic",
+        "anafila",
+        "(reazione|crisi) allergica (grave|forte|fortissima)",
+        "(punto|punta|morso) [^.]{0,40}(gonfi|respir)"
+      ],
+      "source": {
+        "name": "ISSalute — Anafilassi",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/a/anafilassi",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "poisoning_overdose",
+      "label": "avvelenamento / ingestione di sostanze tossiche / sovradosaggio",
+      "action": "EMERGENCY",
+      "patterns": [
+        "avvelen",
+        "intossicat",
+        "overdose",
+        "(ingerit|bevut|mangiat|pres)\\w* [^.]{0,30}(candeggina|veleno|detersivo|topicida|acido|farmaci in quantita|troppe pastiglie|tutte le pastiglie|un flacone)",
+        "ha (bevuto|mangiato|ingerito) [^.]{0,30}(candeggina|detersivo|veleno|pastiglie|medicine)"
+      ],
+      "source": {
+        "name": "Ministero della Salute — Quando chiamare il 118 (documento istituzionale)",
+        "url": "https://www.salute.gov.it/imgs/C_17_generico_135_listafile_file_0_linkfile.pdf",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "self_harm",
+      "label": "pensieri di farsi del male / suicidio",
+      "action": "EMERGENCY",
+      "patterns": [
+        "suicid",
+        "farla finita",
+        "(uccidermi|ammazzarmi|togliermi la vita)",
+        "farmi del male",
+        "non voglio (piu )?vivere",
+        "voglio morire"
+      ],
+      "source": {
+        "name": "Regola conservativa: fonte ufficiale NON verificata alla data (vedi safety/SOURCES.md, sezione 'da verificare')",
+        "url": null,
+        "verified_at": null
+      }
+    },
+    {
+      "rule_id": "major_trauma",
+      "label": "incidente grave / caduta dall'alto / ferita profonda",
+      "action": "EMERGENCY",
+      "patterns": [
+        "incidente (molto )?(grave|violento)",
+        "investit\\w+",
+        "travolt\\w+",
+        "cadut\\w+ (dal|da un|dall)\\w* (balcone|tetto|scala alta|secondo piano|primo piano|albero|impalcatura)",
+        "(ferita|taglio) (profond|molto grand)",
+        "(osso|ossa) (che esce|di fuori|esposto|esposte)",
+        "frattura esposta",
+        "arma da fuoco|sparat|accoltellat"
+      ],
+      "source": {
+        "name": "Ministero della Salute — Quando chiamare il 118 (documento istituzionale)",
+        "url": "https://www.salute.gov.it/imgs/C_17_generico_135_listafile_file_0_linkfile.pdf",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "burns_severe",
+      "label": "ustione estesa / al viso / da elettricità o sostanze chimiche",
+      "action": "EMERGENCY",
+      "patterns": [
+        "ustion\\w+ [^.]{0,40}(viso|faccia|estesa|estese|grande|tutto il|braccio intero|gamba intera|elettric|chimic)",
+        "(bruciat\\w+|scottat\\w+) [^.]{0,40}(viso|faccia|tutto il|tutta la|molto estes)",
+        "folgorat",
+        "scossa elettrica forte"
+      ],
+      "source": {
+        "name": "Ministero della Salute — Quando chiamare il 118 (documento istituzionale)",
+        "url": "https://www.salute.gov.it/imgs/C_17_generico_135_listafile_file_0_linkfile.pdf",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_extreme_pain",
+      "label": "dolore descritto come estremo",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "(dolore|male) (fortissimo|lancinante|insopportabile|atroce|terribile|allucinante|mai (sentito|avuto))",
+        "(fortissimo|lancinante|insopportabile|atroce) (dolore|male)",
+        "sto malissimo",
+        "non ce la faccio (piu )?(dal|per il) (dolore|male)"
+      ],
+      "source": {
+        "name": "Regola di prudenza LazioFlow: il sistema non può classificare in sicurezza; si propone 116117 e la scelta esplicita dell'utente",
+        "url": "https://comunicazione.regione.lazio.it/curalazio/116117-il-numero-unico-europeo-per-cure-non-urgenti",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_child_high_fever_or_infant",
+      "label": "bambino piccolo / neonato con febbre o malessere",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "(neonat|lattante|(\\d+|due|tre|quattro|cinque|sei) mesi)[^.]{0,60}(febbre|vomit|non mangia|piange|sonnolen|respir)",
+        "(febbre|vomit|piange|respir)[^.]{0,60}(neonat|lattante|(\\d+|due|tre|quattro|cinque|sei) mesi)",
+        "(bambin|figli|bimb)[^.]{0,60}(febbre alta|40 di febbre|39,5|(non|fatica a) respir|sonnolent|non si sveglia|macchie)",
+        "(febbre alta|40 di febbre|(non|fatica a) respir|sonnolent|macchie)[^.]{0,60}(bambin|figli|bimb)"
+      ],
+      "source": {
+        "name": "Regola di prudenza LazioFlow (116117 / 112)",
+        "url": "https://comunicazione.regione.lazio.it/curalazio/116117-il-numero-unico-europeo-per-cure-non-urgenti",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_pregnancy_bleeding_pain",
+      "label": "gravidanza con sanguinamento o dolori",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "(incinta|gravid)[^.]{0,80}(sangue|perdite|dolori|contrazioni|non (lo )?sento (piu )?muov)",
+        "(sangue|perdite|dolori|contrazioni)[^.]{0,80}(incinta|gravid)"
+      ],
+      "source": {
+        "name": "Regola di prudenza LazioFlow (116117 / 112)",
+        "url": "https://comunicazione.regione.lazio.it/curalazio/116117-il-numero-unico-europeo-per-cure-non-urgenti",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_sudden_severe_headache",
+      "label": "mal di testa improvviso e fortissimo",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "mal di testa (improvviso|fortissimo|violento|mai avuto|come una martellata)",
+        "(improvviso|fortissimo|violento) mal di testa",
+        "(testa|cranio) (che scoppia|scoppia)"
+      ],
+      "source": {
+        "name": "Regola di prudenza LazioFlow (116117 / 112)",
+        "url": "https://comunicazione.regione.lazio.it/curalazio/116117-il-numero-unico-europeo-per-cure-non-urgenti",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_blood_in_vomit_stool",
+      "label": "sangue nel vomito, nelle feci o nelle urine",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "sangue (nel|nelle|nella|nell)\\s?(vomito|feci|urina|urine|pipi|cacca)",
+        "(feci|urine|pipi) (con|di) sangue",
+        "feci ner",
+        "sputo sangue",
+        "tossisco sangue"
+      ],
+      "source": {
+        "name": "Regola di prudenza LazioFlow (116117 / 112)",
+        "url": "https://comunicazione.regione.lazio.it/curalazio/116117-il-numero-unico-europeo-per-cure-non-urgenti",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_elderly_fall_confusion",
+      "label": "anziano caduto o confuso",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "(anzian|nonn\\w|mia madre|mio padre|\\b(8|9)\\d anni)[^.]{0,80}(cadut|confus|non si regge|non parla bene|non riconosce)",
+        "(cadut|confus|non si regge)[^.]{0,80}(anzian|nonn\\w|\\b(8|9)\\d anni)"
+      ],
+      "source": {
+        "name": "Regola di prudenza LazioFlow (116117 / 112)",
+        "url": "https://comunicazione.regione.lazio.it/curalazio/116117-il-numero-unico-europeo-per-cure-non-urgenti",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_worsening_or_unsure",
+      "label": "peggioramento rapido / non sa cosa ha",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "(peggiora|peggiorando|sempre peggio|sta peggiorando) (in fretta|rapidamente|velocemente|di ora in ora)",
+        "non (so|capisco) (cosa|che cosa|che) (ho|mi succede|mi sta succedendo)",
+        "mi sento (morire|mancare)",
+        "ho paura (che sia|di) (grave|qualcosa di grave|morire)"
+      ],
+      "source": {
+        "name": "Regola di prudenza LazioFlow (116117 / 112)",
+        "url": "https://comunicazione.regione.lazio.it/curalazio/116117-il-numero-unico-europeo-per-cure-non-urgenti",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "choking_airway",
+      "label": "soffocamento / ostruzione delle vie aeree",
+      "action": "EMERGENCY",
+      "patterns": [
+        "sto soffocando",
+        "sta soffocando",
+        "si sta soffocando",
+        "non riesc\\w+ a respirare perche [^.]{0,40}(cibo|boccone|qualcosa)",
+        "(cibo|boccone|oggetto) (bloccato|incastrato) (in gola|nella gola)",
+        "segni di soffocamento"
+      ],
+      "source": {
+        "name": "Ministero della Salute — Quando chiamare il 118 (documento istituzionale)",
+        "url": "https://www.salute.gov.it/imgs/C_17_generico_135_listafile_file_0_linkfile.pdf",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "drowning_submersion",
+      "label": "annegamento / persona recuperata dall'acqua con problemi",
+      "action": "EMERGENCY",
+      "patterns": [
+        "annegat",
+        "annegamento",
+        "stava annegando",
+        "quasi annegat",
+        "tirat\\w+ fuori dall acqua[^.]{0,60}(non respira|incoscien|non risponde|respira male)",
+        "recuperat\\w+ dall acqua[^.]{0,60}(non respira|incoscien|non risponde|respira male)"
+      ],
+      "source": {
+        "name": "Ministero della Salute — Quando chiamare il 118 (documento istituzionale)",
+        "url": "https://www.salute.gov.it/imgs/C_17_generico_135_listafile_file_0_linkfile.pdf",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "stroke_sudden_vision",
+      "label": "disturbo visivo improvviso compatibile con red flag neurologica",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(improvvis\\w+|all improvviso)[^.]{0,30}(non vedo|non vede|vedo male|vede male|vista offuscata|visione offuscata|perdita della vista|perdita di vista)",
+        "(non vedo|non vede|vista offuscata|visione offuscata|perdita di vista)[^.]{0,30}(improvvis\\w+|all improvviso)",
+        "(improvvis\\w+|all improvviso)[^.]{0,30}(vedo tutto offuscato|vede tutto offuscato|non vedo bene|non vede bene)",
+        "(vedo tutto offuscato|vede tutto offuscato|non vedo bene|non vede bene)[^.]{0,30}(improvvis\\w+|all improvviso)"
+      ],
+      "source": {
+        "name": "Ministero della Salute — Ictus: i sintomi",
+        "url": "https://www.salute.gov.it/new/it/tema/malattie-cardio-cerebrovascolari/ictus-i-sintomi/",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "stroke_sudden_balance",
+      "label": "perdita improvvisa di equilibrio o coordinazione",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(improvvis\\w+|all improvviso)[^.]{0,35}(perdita di equilibrio|non riesc\\w+ a stare in piedi|sband|coordinaz|vertigin)",
+        "(perdita di equilibrio|sbandamento|non riesc\\w+ a stare in piedi)[^.]{0,35}(improvvis\\w+|all improvviso)"
+      ],
+      "source": {
+        "name": "Ministero della Salute — Ictus: i sintomi",
+        "url": "https://www.salute.gov.it/new/it/tema/malattie-cardio-cerebrovascolari/ictus-i-sintomi/",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "stroke_sudden_severe_headache",
+      "label": "mal di testa improvviso molto forte e inconsueto",
+      "action": "EMERGENCY",
+      "patterns": [
+        "mal di testa [^.]{0,25}(improvviso|all improvviso)[^.]{0,25}(fortissim|violent|lancinant|mai avut|insolit)",
+        "(improvvis\\w+|all improvviso)[^.]{0,25}mal di testa[^.]{0,25}(fortissim|violent|lancinant|mai avut|insolit)",
+        "mal di testa (come un fulmine|a rombo di tuono)"
+      ],
+      "source": {
+        "name": "Ministero della Salute — Ictus: i sintomi",
+        "url": "https://www.salute.gov.it/new/it/tema/malattie-cardio-cerebrovascolari/ictus-i-sintomi/",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "head_trauma_repeated_vomiting",
+      "label": "vomito ripetuto dopo trauma cranico",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(battut\\w+|sbattut\\w+|colpo|botta|trauma|cadut\\w+)[^.]{0,45}(testa|cranio)[^.]{0,80}(vomitato (due|tre|piu) volte|vomito ripetuto|continua a vomitare|vomita ancora)",
+        "(vomito ripetuto|continua a vomitare|vomita ancora)[^.]{0,80}(botta|colpo|trauma|cadut\\w+)[^.]{0,40}(testa|cranio)"
+      ],
+      "source": {
+        "name": "ISSalute — Commozione cerebrale",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/c/commozione-cerebrale",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "head_trauma_worsening_headache",
+      "label": "mal di testa persistente o in peggioramento dopo trauma cranico",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(botta|colpo|trauma|cadut\\w+|sbattut\\w+)[^.]{0,45}(testa|cranio)[^.]{0,90}(mal di testa|dolore)[^.]{0,35}(peggiora|sempre peggio|non passa|persiste)",
+        "(mal di testa|dolore)[^.]{0,35}(peggiora|sempre peggio|non passa|persiste)[^.]{0,80}(botta|colpo|trauma|cadut\\w+)[^.]{0,40}(testa|cranio)"
+      ],
+      "source": {
+        "name": "ISSalute — Commozione cerebrale",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/c/commozione-cerebrale",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "head_trauma_ear_nose_bleeding",
+      "label": "sangue da naso o orecchie dopo trauma cranico",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(botta|colpo|trauma|cadut\\w+|sbattut\\w+)[^.]{0,45}(testa|cranio)[^.]{0,90}sangue (dal naso|dall orecchio|dalle orecchie)",
+        "sangue (dal naso|dall orecchio|dalle orecchie)[^.]{0,80}(dopo|da)[^.]{0,30}(botta|colpo|trauma|cadut\\w+|sbattut\\w+)[^.]{0,30}(testa|cranio)?"
+      ],
+      "source": {
+        "name": "ISSalute — Commozione cerebrale",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/c/commozione-cerebrale",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "head_trauma_vision_change",
+      "label": "disturbi visivi dopo trauma cranico",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(botta|colpo|trauma|cadut\\w+|sbattut\\w+)[^.]{0,45}(testa|cranio)[^.]{0,90}(vedo doppio|vede doppio|vedo male|vista offuscata|visione offuscata|problemi di vista)",
+        "(vedo doppio|vede doppio|vista offuscata|problemi di vista)[^.]{0,90}(dopo|da)[^.]{0,35}(botta|colpo|trauma|cadut\\w+)[^.]{0,30}(testa|cranio)?"
+      ],
+      "source": {
+        "name": "ISSalute — Commozione cerebrale",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/c/commozione-cerebrale",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "head_trauma_confusion_drowsiness",
+      "label": "confusione o sonnolenza dopo trauma cranico",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(botta|colpo|trauma|cadut\\w+|sbattut\\w+)[^.]{0,45}(testa|cranio)[^.]{0,90}(confus|disorient|sonnolen|non riconosce|farfuglia)",
+        "(confus|disorient|sonnolen|non riconosce|farfuglia)[^.]{0,90}(dopo|da)[^.]{0,35}(botta|colpo|trauma|cadut\\w+)[^.]{0,30}(testa|cranio)?"
+      ],
+      "source": {
+        "name": "ISSalute — Commozione cerebrale",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/c/commozione-cerebrale",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "anaphylaxis_swallowing",
+      "label": "difficoltà a deglutire con possibile reazione allergica",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(allerg|orticaria|punt\\w+|mors\\w+)[^.]{0,70}(difficolta a (deglutire|ingoiare)|non riesc\\w+ a (deglutire|ingoiare))",
+        "(difficolta a (deglutire|ingoiare)|non riesc\\w+ a (deglutire|ingoiare))[^.]{0,70}(allerg|orticaria|punt\\w+|mors\\w+|gonfi)"
+      ],
+      "source": {
+        "name": "ISSalute — Anafilassi",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/a/anafilassi",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "anaphylaxis_cyanosis_collapse",
+      "label": "cianosi/collasso durante reazione allergica",
+      "action": "EMERGENCY",
+      "patterns": [
+        "(allerg|orticaria|punt\\w+|mors\\w+)[^.]{0,80}(labbra (blu|violacee|cianotiche)|collasso|perdita di coscienza)",
+        "(labbra (blu|violacee|cianotiche)|collasso)[^.]{0,80}(allerg|orticaria|punt\\w+|mors\\w+)"
+      ],
+      "source": {
+        "name": "ISSalute — Anafilassi",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/a/anafilassi",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "heatstroke_red",
+      "label": "possibile colpo di calore con confusione o svenimento",
+      "action": "EMERGENCY",
+      "patterns": [
+        "colpo di calore[^.]{0,70}(confus|svenut|perso i sensi|delirio|non risponde)",
+        "(caldo|sole|afa|temperatura alta)[^.]{0,80}(confus|svenut|perso i sensi|delirio|non risponde)",
+        "(confus|svenut|delirio)[^.]{0,80}(dopo|con|per)[^.]{0,30}(caldo|sole|afa)"
+      ],
+      "source": {
+        "name": "ISSalute — Colpo di calore e insolazione",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/c/colpo-di-calore-e-insolazione",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_road_sport_accident",
+      "label": "incidente senza indicatori sufficienti per valutarne la gravità",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "incidente (stradale|in macchina|d auto|in auto|in moto|con la moto|in bici|sportivo)",
+        "cadut\\w+ (dalla moto|dallo scooter|dalla bici|in bicicletta)",
+        "tamponamento[^.]{0,50}(dolore|male|botta|trauma)"
+      ],
+      "source": {
+        "name": "Ministero della Salute — Quando chiamare il 118 (documento istituzionale)",
+        "url": "https://www.salute.gov.it/imgs/C_17_generico_135_listafile_file_0_linkfile.pdf",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_sudden_abdominal_pain",
+      "label": "dolore addominale violento e improvviso",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "(dolore|male) (alla pancia|all addome|allo stomaco|addominale)[^.]{0,35}(improvvis|violent|fortissim|pugnalata)",
+        "(improvvis\\w+|all improvviso)[^.]{0,30}(dolore|male)[^.]{0,20}(pancia|addome|stomaco)",
+        "(pancia|addome|stomaco)[^.]{0,20}(dolore|male)[^.]{0,30}(violent|fortissim|pugnalata)"
+      ],
+      "source": {
+        "name": "ISSalute — Pancreatite acuta",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/p/pancreatite-acuta",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_allergic_systemic",
+      "label": "reazione allergica con sintomi sistemici ma senza red flag respiratoria esplicita",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "(orticaria|reazione allergica|allergia)[^.]{0,80}(vertigin|capogir|debolezza|vomit|nausea)",
+        "(punt\\w+|mors\\w+)[^.]{0,80}(orticaria|gonfiore diffuso|vertigin|capogir|vomit)",
+        "gonfiore (del viso|della faccia|delle labbra)"
+      ],
+      "source": {
+        "name": "ISSalute — Morsi e punture di insetti",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/m/morsi-e-punture-di-insetti",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_heat_illness",
+      "label": "malessere compatibile con stress da calore",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "(caldo|sole|afa|giornata calda)[^.]{0,80}(nausea|crampi|debolezza|mal di testa|sete intensa|disidrat)",
+        "(nausea|crampi|debolezza|sete intensa|disidrat)[^.]{0,80}(caldo|sole|afa)",
+        "colpo di calore"
+      ],
+      "source": {
+        "name": "ISSalute — Colpo di calore e insolazione",
+        "url": "https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/c/colpo-di-calore-e-insolazione",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_repeated_vomiting",
+      "label": "vomito ripetuto o persistente senza contesto sufficiente",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "vomit\\w+ (continuamente|di continuo|tante volte|molte volte|ripetutamente)",
+        "continu\\w+ a vomitare",
+        "non (riesco|riesce) a tenere (giu )?(l )?(acqua|liquidi|niente|nulla)",
+        "vomito ripetuto"
+      ],
+      "source": {
+        "name": "Regola di prudenza LazioFlow — 116117 per valutazione sanitaria non urgente/indeterminata",
+        "url": "https://comunicazione.regione.lazio.it/curalazio/116117-il-numero-unico-europeo-per-cure-non-urgenti",
+        "verified_at": "2026-09-10"
+      }
+    },
+    {
+      "rule_id": "unc_new_weakness_numbness",
+      "label": "nuova debolezza o perdita di sensibilità non sufficientemente caratterizzata",
+      "action": "UNCERTAIN",
+      "patterns": [
+        "(debolezza|formicolio|intorpidimento|perdita di sensibilita) (nuov\\w+|stran\\w+|improvvis\\w+)",
+        "non sento (bene )?(un braccio|una gamba|la mano|il piede)",
+        "mi si e addormentat\\w+ (un braccio|una gamba|meta faccia)"
+      ],
+      "source": {
+        "name": "Ministero della Salute — Ictus: i sintomi",
+        "url": "https://www.salute.gov.it/new/it/tema/malattie-cardio-cerebrovascolari/ictus-i-sintomi/",
+        "verified_at": "2026-09-10"
+      }
+    }
+  ]
+}

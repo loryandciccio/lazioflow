@@ -1,0 +1,38 @@
+# LazioFlow — parametri del ranking.
+# Sono PARAMETRI DI PRODOTTO dichiarati, NON clinici e NON validati scientificamente.
+# Principio (docs/FATTIBILITA.md §7): niente pesi. L'ordinamento è in minuti,
+#   balanced = dati recenti, poi viaggio; attesa osservata a parità di viaggio
+# Nessuna stima del tempo complessivo. I preset cambiano solo QUALE grandezza conta, mai i filtri di safety/compatibilità.
+
+travel:
+  road_factor: 1.3            # km stradali stimati = km in linea d'aria × fattore (dichiarato)
+  speed_kmh_first_10km: 30    # velocità media dichiarata sui primi 10 km stradali (ambito urbano)
+  speed_kmh_beyond: 60        # velocità media dichiarata oltre i primi 10 km
+
+wait:
+  # attesa osservata = maxWaitSeconds del primo codice triage, in quest'ordine, con almeno una persona in attesa.
+  # È "quanto sta aspettando adesso chi aspetta da più tempo in quel codice": un dato osservato, non una previsione.
+  codes_priority: ["4", "3", "5"]
+  pressure_codes: ["3", "4", "5"]   # "persone in attesa" mostrate = somma di questi codici (domanda deviabile)
+
+freshness:
+  live_cache_s: 60           # per quanto riusiamo una risposta live di SaluteLazio
+  recent_max_age_s: 1800      # snapshot del poller entro 30 min -> "recent"
+  stale_max_age_s: 21600      # entro 6 ore -> "stale" (solo mostrato con avviso, escluso dal ranking); oltre -> "unavailable"
+
+trend:
+  abs_min: 3                  # crescente/decrescente solo se |delta_60m| >= 3 persone ...
+  rel_min: 0.25               # ... E >= 25% del valore di un'ora fa (evita il rumore dei piccoli numeri)
+  recent_max_age_min: 20      # ultimo snapshot più vecchio di così -> insufficient_data
+  tolerance_min: 6            # uno snapshot vale per -15/-30/-60 min se è entro ± questa tolleranza
+
+presets:
+  balanced:     {travel: true,  wait: true }   # Equilibrato: viaggio + attesa
+  nearest:      {travel: true,  wait: false}   # Più vicino: solo viaggio (attesa mostrata, non usata)
+  less_crowded: {travel: false, wait: true }   # Meno affollato: solo attesa (viaggio mostrato, non usato)
+
+candidates:
+  max_distance_km: 60         # oltre questa distanza non proponiamo la struttura
+  live_fetch_top_n: 12        # per quanti PS candidati interroghiamo lo stato live
+  pharmacy_known_open_radius_km: 10   # di notte/festivi le farmacie con apertura NOTA vengono prima, ma solo entro questo raggio
+  top_n: 3

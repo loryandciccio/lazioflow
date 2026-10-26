@@ -1,0 +1,24 @@
+{
+  "_doc": "Categorie CHIUSE per l'MVP LazioFlow. Il testo libero dell'utente (o l'LLM) può SOLO scegliere una di queste; la categoria non è una diagnosi ma un instradamento. 'requires' sono capability presenti in facilities.json; 'allowed_types' i tipi di struttura ammessi; 'ps_scope' quali PS specialistici sono ammessi oltre ai generali.",
+  "_capability_reference": "emergency_room, pediatric_emergency_room, orthopedics_trauma, trauma_network, pediatrics, cardiology, coronary_unit, cath_lab, neurology, stroke_unit, obstetrics_gynecology, ophthalmology, ent, general_surgery, imaging_h24_by_regulation, community_house_dm77, pharmacy, pharmacy_h24",
+  "categories": [
+    {"id": "EMERGENZA", "label": "Emergenza (pericolo di vita)", "action": "call_112", "allowed_types": [], "requires": [],
+     "red_flags_examples": ["dolore toracico", "difficoltà a respirare", "perdita di coscienza", "sanguinamento abbondante", "difficoltà a parlare/muovere un lato", "trauma cranico con vomito", "convulsioni"],
+     "note": "Nessuna ricerca strutture. Messaggio fisso 112. Sempre mostrato come prima opzione."},
+    {"id": "TRAUMA_MINORE", "label": "Disturbo muscolo-scheletrico (dolore o trauma dichiarato)",
+     "allowed_types": ["emergency_room"], "ps_scope": ["general", "orthopedic"], "requires": ["orthopedics_trauma"], "prefer": ["trauma_network"],
+     "exclude_scope": ["pediatric", "ophthalmic", "dental", "obstetric", "hematologic"], "age_rule": "se età < 14 usa PEDIATRICO",
+     "note": "Non decidiamo se è frattura: chiediamo solo che nella struttura esista ortopedia-traumatologia (posti letto 2023) e ricordiamo che ogni PS ha radiologia h24 per DM 70."},
+    {"id": "PEDIATRICO", "label": "Bambino/a (< 14 anni)", "allowed_types": ["emergency_room"], "ps_scope": ["general", "pediatric"],
+     "requires": ["pediatrics"], "prefer": ["pediatric_emergency_room"], "prefer_strict": true, "note": "Preferisce PS pediatrici dedicati (prefer_strict: vengono prima nell'ordine); ammette PS generali con reparto di pediatria."},
+    {"id": "OCCHIO", "label": "Problema all'occhio (corpo estraneo, dolore, calo vista improvviso)", "allowed_types": ["emergency_room"], "ps_scope": ["general", "ophthalmic"],
+     "requires": ["ophthalmology"], "prefer": [], "note": "Calo improvviso della vista con altri sintomi neurologici -> EMERGENZA."},
+    {"id": "ORECCHIO_NASO_GOLA", "label": "Orecchio, naso, gola (otite, epistassi non massiva, corpo estraneo)", "allowed_types": ["emergency_room"], "ps_scope": ["general"], "requires": ["ent"]},
+    {"id": "GRAVIDANZA", "label": "Gravidanza / problema ginecologico", "allowed_types": ["emergency_room"], "ps_scope": ["general", "obstetric"], "requires": ["obstetrics_gynecology"]},
+    {"id": "DENTI", "label": "Dolore dentale / trauma dentale", "allowed_types": ["emergency_room"], "ps_scope": ["dental"], "requires": [], "note": "Solo PS odontoiatrici (Umberto I, PTV) o farmacia + medico; in alternativa CdC."},
+    {"id": "PROBLEMA_GENERICO_NON_URGENTE", "label": "Sintomi generali da chiarire", "allowed_types": ["community_house", "emergency_room"], "ps_scope": ["general"], "requires": [],
+     "note": "Prima proposta: 116117 + Casa della Comunità aperta; PS solo se l'utente lo chiede. Nessun filtro di specialità."},
+    {"id": "FARMACIA", "label": "Ho bisogno di una farmacia", "allowed_types": ["pharmacy"], "requires": ["pharmacy"], "note": "Di notte/festivi: prima le h24 e le farmacie di turno (solo Roma), poi le altre con avviso 'orario non verificato'."},
+    {"id": "ASSISTENZA_TERRITORIALE", "label": "Visita, prelievo, infermiere, vaccino, PUA", "allowed_types": ["community_house"], "requires": ["community_house_dm77"], "note": "Servizi per singola CdC non verificati: dire sempre 'chiama prima'."}
+  ]
+}

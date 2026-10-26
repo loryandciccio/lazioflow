@@ -1,0 +1,616 @@
+{
+  "meta": {
+    "built_at": "2026-01-01T00:00:00+00:00",
+    "schema_version": 1,
+    "synthetic": true,
+    "dataset_label": "Synthetic demo catalogue - not real healthcare facilities",
+    "counts": {
+      "emergency_room": 6,
+      "pharmacy": 8,
+      "community_house": 2,
+      "community_hospital": 1
+    },
+    "ps_join": {}
+  },
+  "facilities": [
+    {
+      "facility_id": "demo:emergency_room:01",
+      "name": "DEMO Emergency Room 01 - fictional site",
+      "type": "emergency_room",
+      "synthetic": true,
+      "ps_scope": "general",
+      "lat": 41.896,
+      "lng": 12.475,
+      "address": "DEMO location 01 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {
+        "salutelazio_emergency_id": "DEMO_PS_01"
+      },
+      "capabilities": [
+        "emergency_room",
+        "orthopedics_trauma",
+        "pediatrics",
+        "ophthalmology",
+        "ent",
+        "obstetrics_gynecology"
+      ],
+      "capability_sources": {
+        "emergency_room": "synthetic:demo-catalogue",
+        "orthopedics_trauma": "synthetic:demo-catalogue",
+        "pediatrics": "synthetic:demo-catalogue",
+        "ophthalmology": "synthetic:demo-catalogue",
+        "ent": "synthetic:demo-catalogue",
+        "obstetrics_gynecology": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:emergency_room:02",
+      "name": "DEMO Emergency Room 02 - fictional site",
+      "type": "emergency_room",
+      "synthetic": true,
+      "ps_scope": "general",
+      "lat": 41.902,
+      "lng": 12.48,
+      "address": "DEMO location 02 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {
+        "salutelazio_emergency_id": "DEMO_PS_02"
+      },
+      "capabilities": [
+        "emergency_room",
+        "orthopedics_trauma",
+        "pediatrics",
+        "ophthalmology",
+        "ent",
+        "obstetrics_gynecology"
+      ],
+      "capability_sources": {
+        "emergency_room": "synthetic:demo-catalogue",
+        "orthopedics_trauma": "synthetic:demo-catalogue",
+        "pediatrics": "synthetic:demo-catalogue",
+        "ophthalmology": "synthetic:demo-catalogue",
+        "ent": "synthetic:demo-catalogue",
+        "obstetrics_gynecology": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:emergency_room:03",
+      "name": "DEMO Emergency Room 03 - fictional site",
+      "type": "emergency_room",
+      "synthetic": true,
+      "ps_scope": "general",
+      "lat": 41.908,
+      "lng": 12.485,
+      "address": "DEMO location 03 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {
+        "salutelazio_emergency_id": "DEMO_PS_03"
+      },
+      "capabilities": [
+        "emergency_room",
+        "orthopedics_trauma",
+        "pediatrics",
+        "ophthalmology",
+        "ent",
+        "obstetrics_gynecology"
+      ],
+      "capability_sources": {
+        "emergency_room": "synthetic:demo-catalogue",
+        "orthopedics_trauma": "synthetic:demo-catalogue",
+        "pediatrics": "synthetic:demo-catalogue",
+        "ophthalmology": "synthetic:demo-catalogue",
+        "ent": "synthetic:demo-catalogue",
+        "obstetrics_gynecology": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:emergency_room:04",
+      "name": "DEMO Emergency Room 04 - fictional site",
+      "type": "emergency_room",
+      "synthetic": true,
+      "ps_scope": "general",
+      "lat": 41.914,
+      "lng": 12.49,
+      "address": "DEMO location 04 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {
+        "salutelazio_emergency_id": "DEMO_PS_04"
+      },
+      "capabilities": [
+        "emergency_room",
+        "orthopedics_trauma",
+        "pediatrics",
+        "ophthalmology",
+        "ent",
+        "obstetrics_gynecology"
+      ],
+      "capability_sources": {
+        "emergency_room": "synthetic:demo-catalogue",
+        "orthopedics_trauma": "synthetic:demo-catalogue",
+        "pediatrics": "synthetic:demo-catalogue",
+        "ophthalmology": "synthetic:demo-catalogue",
+        "ent": "synthetic:demo-catalogue",
+        "obstetrics_gynecology": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:emergency_room:05",
+      "name": "DEMO Emergency Room 05 - fictional site",
+      "type": "emergency_room",
+      "synthetic": true,
+      "ps_scope": "general",
+      "lat": 41.92,
+      "lng": 12.495,
+      "address": "DEMO location 05 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {
+        "salutelazio_emergency_id": "DEMO_PS_05"
+      },
+      "capabilities": [
+        "emergency_room",
+        "orthopedics_trauma",
+        "pediatrics",
+        "ophthalmology",
+        "ent",
+        "obstetrics_gynecology"
+      ],
+      "capability_sources": {
+        "emergency_room": "synthetic:demo-catalogue",
+        "orthopedics_trauma": "synthetic:demo-catalogue",
+        "pediatrics": "synthetic:demo-catalogue",
+        "ophthalmology": "synthetic:demo-catalogue",
+        "ent": "synthetic:demo-catalogue",
+        "obstetrics_gynecology": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:emergency_room:06",
+      "name": "DEMO Emergency Room 06 - fictional site",
+      "type": "emergency_room",
+      "synthetic": true,
+      "ps_scope": "general",
+      "lat": 41.926,
+      "lng": 12.5,
+      "address": "DEMO location 06 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {
+        "salutelazio_emergency_id": "DEMO_PS_06"
+      },
+      "capabilities": [
+        "emergency_room",
+        "orthopedics_trauma",
+        "pediatrics",
+        "ophthalmology",
+        "ent",
+        "obstetrics_gynecology"
+      ],
+      "capability_sources": {
+        "emergency_room": "synthetic:demo-catalogue",
+        "orthopedics_trauma": "synthetic:demo-catalogue",
+        "pediatrics": "synthetic:demo-catalogue",
+        "ophthalmology": "synthetic:demo-catalogue",
+        "ent": "synthetic:demo-catalogue",
+        "obstetrics_gynecology": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:pharmacy:01",
+      "name": "DEMO Pharmacy 01 - fictional site",
+      "type": "pharmacy",
+      "synthetic": true,
+      "ps_scope": null,
+      "lat": 41.896,
+      "lng": 12.475,
+      "address": "DEMO location 01 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {},
+      "capabilities": [
+        "pharmacy"
+      ],
+      "capability_sources": {
+        "pharmacy": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:pharmacy:02",
+      "name": "DEMO Pharmacy 02 - fictional site",
+      "type": "pharmacy",
+      "synthetic": true,
+      "ps_scope": null,
+      "lat": 41.902,
+      "lng": 12.48,
+      "address": "DEMO location 02 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {},
+      "capabilities": [
+        "pharmacy"
+      ],
+      "capability_sources": {
+        "pharmacy": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:pharmacy:03",
+      "name": "DEMO Pharmacy 03 - fictional site",
+      "type": "pharmacy",
+      "synthetic": true,
+      "ps_scope": null,
+      "lat": 41.908,
+      "lng": 12.485,
+      "address": "DEMO location 03 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {},
+      "capabilities": [
+        "pharmacy"
+      ],
+      "capability_sources": {
+        "pharmacy": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:pharmacy:04",
+      "name": "DEMO Pharmacy 04 - fictional site",
+      "type": "pharmacy",
+      "synthetic": true,
+      "ps_scope": null,
+      "lat": 41.914,
+      "lng": 12.49,
+      "address": "DEMO location 04 (VT) - not a real address",
+      "phone": null,
+      "asl": "VT",
+      "ids": {},
+      "capabilities": [
+        "pharmacy"
+      ],
+      "capability_sources": {
+        "pharmacy": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:pharmacy:05",
+      "name": "DEMO Pharmacy 05 - fictional site",
+      "type": "pharmacy",
+      "synthetic": true,
+      "ps_scope": null,
+      "lat": 41.92,
+      "lng": 12.495,
+      "address": "DEMO location 05 (RI) - not a real address",
+      "phone": null,
+      "asl": "RI",
+      "ids": {},
+      "capabilities": [
+        "pharmacy"
+      ],
+      "capability_sources": {
+        "pharmacy": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:pharmacy:06",
+      "name": "DEMO Pharmacy 06 - fictional site",
+      "type": "pharmacy",
+      "synthetic": true,
+      "ps_scope": null,
+      "lat": 41.926,
+      "lng": 12.5,
+      "address": "DEMO location 06 (FR) - not a real address",
+      "phone": null,
+      "asl": "FR",
+      "ids": {},
+      "capabilities": [
+        "pharmacy"
+      ],
+      "capability_sources": {
+        "pharmacy": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:pharmacy:07",
+      "name": "DEMO Pharmacy 07 - fictional site",
+      "type": "pharmacy",
+      "synthetic": true,
+      "ps_scope": null,
+      "lat": 41.932,
+      "lng": 12.505,
+      "address": "DEMO location 07 (LT) - not a real address",
+      "phone": null,
+      "asl": "LT",
+      "ids": {},
+      "capabilities": [
+        "pharmacy"
+      ],
+      "capability_sources": {
+        "pharmacy": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:pharmacy:08",
+      "name": "DEMO Pharmacy 08 - fictional site",
+      "type": "pharmacy",
+      "synthetic": true,
+      "ps_scope": null,
+      "lat": 41.938,
+      "lng": 12.51,
+      "address": "DEMO location 08 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {},
+      "capabilities": [
+        "pharmacy"
+      ],
+      "capability_sources": {
+        "pharmacy": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:community_house:01",
+      "name": "DEMO Community House 01 - fictional site",
+      "type": "community_house",
+      "synthetic": true,
+      "ps_scope": null,
+      "lat": 41.896,
+      "lng": 12.475,
+      "address": "DEMO location 01 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {},
+      "capabilities": [
+        "community_house_dm77"
+      ],
+      "capability_sources": {
+        "community_house_dm77": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:community_house:02",
+      "name": "DEMO Community House 02 - fictional site",
+      "type": "community_house",
+      "synthetic": true,
+      "ps_scope": null,
+      "lat": 41.902,
+      "lng": 12.48,
+      "address": "DEMO location 02 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {},
+      "capabilities": [
+        "community_house_dm77"
+      ],
+      "capability_sources": {
+        "community_house_dm77": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    },
+    {
+      "facility_id": "demo:community_hospital:03",
+      "name": "DEMO Community Hospital 03 - fictional site",
+      "type": "community_hospital",
+      "synthetic": true,
+      "ps_scope": null,
+      "lat": 41.908,
+      "lng": 12.485,
+      "address": "DEMO location 03 (RM) - not a real address",
+      "phone": null,
+      "asl": "RM",
+      "ids": {},
+      "capabilities": [
+        "community_house_dm77"
+      ],
+      "capability_sources": {
+        "community_house_dm77": "synthetic:demo-catalogue"
+      },
+      "classification": {},
+      "live": {
+        "supported": false,
+        "note": "Synthetic record; no real live source"
+      },
+      "opening": {
+        "mode": "unknown"
+      },
+      "source": {
+        "anagrafica": "Synthetic demonstration data; no external dataset"
+      },
+      "updated_at": "2026-01-01T00:00:00+00:00"
+    }
+  ]
+}

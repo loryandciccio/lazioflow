@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lazioflow"
+version = "0.1.0"
+description = "LazioFlow — orientamento sanitario territoriale nel Lazio (bot Telegram + backend). Nessuna diagnosi."
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn>=0.30",
+  "httpx>=0.27",
+  "pydantic>=2.7",
+  "pyyaml>=6",
+  "pypdf>=4",
+  "python-dotenv>=1",
+  "python-telegram-bot>=21",
+  "anthropic>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+data = ["openpyxl>=3.1", "pypdf>=4"]
+
+[tool.setuptools.packages.find]
+include = ["ai*", "backend*", "bot*", "safety*", "poller*", "data.normalized", "config"]
+exclude = ["*.tests", "*.tests.*"]
+
+[tool.setuptools.package-data]
+ai = ["prompts/*.md"]
+safety = ["rules.json", "SOURCES.md"]
+"data.normalized" = ["categories.json", "facilities.json"]
+config = ["ranking.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "safety/tests", "ai/tests"]
+asyncio_mode = "auto"
